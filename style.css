@@ -1,0 +1,351 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #e8e6e1;
+    --page-bg: #ffffff;
+    --sidebar-bg: #f4f3f0;
+    --text-color: #292929;
+    --heading-color: #000000;
+    --menu-link: #303030;
+    --menu-sublink: #666666;
+    --menu-active: #888888;
+    --border-color: #d8d8d8;
+    --panel-border: #d0cec8;
+    --footer-text: #777777;
+    --link-hover: #8a3434;
+
+    /* Звичайний фон для світлої теми */
+    --bg-image: url("bg.jpg");
+}
+
+/* М'якша темно-сіра тема (світліша та комфортніша палітра) */
+body.dark-theme {
+    --bg-color: #2b2b2b;       
+    --page-bg: #383838;        
+    --sidebar-bg: #303030;     
+    --text-color: #e0e0e0;     
+    --heading-color: #ffffff;  
+    --menu-link: #dcdcdc;      
+    --menu-sublink: #adadad;   
+    --menu-active: #ffffff;    
+    --border-color: #4f4f4f;   
+    --panel-border: #5e5e5e;   
+    --footer-text: #aaaaaa;    
+    --link-hover: #ff9999;  
+
+    /* Затемнення фон-картинки на 30% лише для темної теми */
+    --bg-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("bg.jpg");
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+
+    background-color: var(--bg-color);
+    background-image: var(--bg-image);
+    background-position: center;
+    background-repeat: repeat;
+    background-attachment: fixed;
+
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Центральна панель */
+.page {
+    --panel-padding: 30px;
+    --sidebar-width: 140px;
+
+    width: 100%;
+    max-width: 1100px;
+    min-height: 700px;
+
+    margin: 0 auto;
+    padding: var(--panel-padding);
+
+    background-color: var(--page-bg);
+    border: 1px solid var(--panel-border);
+
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Верхня частина */
+.site-header {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) auto;
+    align-items: center;
+
+    min-height: 101px;
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid var(--border-color);
+
+    margin-left: calc(var(--panel-padding) * -1);
+    margin-right: calc(var(--panel-padding) * -1);
+    padding-left: var(--panel-padding);
+    padding-right: var(--panel-padding);
+}
+
+/* Перемикач теми у верхньому правому кутку */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--menu-sublink);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px 8px;
+    text-decoration: underline;
+    align-self: flex-start;
+}
+
+.theme-toggle:hover {
+    color: var(--link-hover);
+}
+
+.logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 30px;
+
+    width: calc(
+        var(--sidebar-width) - var(--panel-padding) - 1px
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+
+    transform: translate(33px, 1px);
+}
+
+.logo img {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    max-width: 110px;
+    max-height: 110px;
+
+    margin: 0;
+}
+
+.site-title {
+    grid-column: 2;
+    min-width: 0;
+}
+
+.site-title h1 {
+    margin: 0;
+    color: var(--heading-color);
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+/* Меню та основний текст */
+.page-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+    column-gap: 22px;
+
+    flex: 1 0 auto;
+}
+
+/* Бічне меню */
+.sidebar {
+    min-width: 0;
+    background-color: var(--sidebar-bg);
+    
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: calc(var(--panel-padding) * -1); 
+    
+    border-right: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.menu,
+.menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu > li {
+    margin-bottom: 10px;
+}
+
+.menu a {
+    display: block;
+    color: var(--menu-link);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.menu > li > a,
+.menu-heading {
+    font-weight: bold;
+    color: var(--heading-color);
+}
+
+.menu-heading {
+    display: block;
+}
+
+/* Підрозділи */
+.menu ul {
+    margin-top: 6px;
+    margin-left: 4px;
+    padding-left: 13px;
+
+    border-left: 1px solid var(--border-color);
+}
+
+.menu ul li {
+    margin: 2px 0;
+}
+
+.menu ul a {
+    color: var(--menu-sublink);
+    font-size: 14px;
+}
+
+/* Поточна сторінка */
+.menu a[aria-current="page"] {
+    color: var(--menu-active);
+}
+
+.menu a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+/* Основний вміст */
+.content {
+    min-width: 0;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+.content h1, .content h2, .content h3 {
+    color: var(--heading-color);
+}
+
+.content p {
+    margin: 0 0 22px;
+}
+
+.content a {
+    color: var(--menu-link);
+}
+
+.content a:hover {
+    color: var(--link-hover);
+}
+
+.content img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Нижня частина */
+.site-footer {
+    margin-top: auto;
+    padding-top: 14px;
+
+    border-top: 1px solid var(--border-color);
+
+    text-align: center;
+    color: var(--footer-text);
+
+    flex-shrink: 0;
+
+    margin-left: calc(var(--panel-padding) * -1);
+    margin-right: calc(var(--panel-padding) * -1);
+    padding-left: var(--panel-padding);
+    padding-right: var(--panel-padding);
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+/* Вузькі екрани */
+@media (max-width: 700px) {
+    body {
+        padding: 12px;
+    }
+
+    .page {
+        min-height: 650px;
+        padding: 20px;
+    }
+
+    .site-header {
+        grid-template-columns: 80px minmax(0, 1fr) auto;
+        min-height: 0;
+    }
+
+    .logo {
+        position: static;
+        grid-column: 1;
+        width: 80px;
+        margin: 0;
+        padding: 0;
+        transform: none;
+    }
+
+    .logo img {
+        max-width: 65px;
+        max-height: 75px;
+    }
+
+    .site-title {
+        grid-column: 2;
+    }
+
+    .site-title h1 {
+        font-size: 22px;
+    }
+
+    .page-layout {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+    }
+
+    .sidebar {
+        padding-right: 15px;
+        padding-bottom: 16px;
+        margin-left: calc(var(--panel-padding) * -1);
+        margin-right: calc(var(--panel-padding) * -1);
+
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+}
