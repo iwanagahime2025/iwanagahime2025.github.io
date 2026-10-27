@@ -296,15 +296,16 @@ body {
     margin: 0;
 }
 
-/* Вузькі екрани */
+/* Вузькі екрани (Телефони та планшети) */
 @media (max-width: 700px) {
     body {
         padding: 12px;
     }
 
     .page {
+        --panel-padding: 20px;
         min-height: 650px;
-        padding: 20px;
+        padding: var(--panel-padding);
     }
 
     .site-header {
@@ -339,11 +340,18 @@ body {
         row-gap: 24px;
     }
 
+    /* Виправлення сірого бічного меню для мобільних пристроїв */
     .sidebar {
-        padding-right: 15px;
-        padding-bottom: 16px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        padding-left: var(--panel-padding);
+        padding-right: var(--panel-padding);
+
+        /* Акуратно розтягуємо сіру панель точно від лівого до правого краю білого блоку .page */
         margin-left: calc(var(--panel-padding) * -1);
         margin-right: calc(var(--panel-padding) * -1);
+        margin-top: 0;
+        margin-bottom: 0;
 
         border-right: none;
         border-bottom: 1px solid var(--border-color);
